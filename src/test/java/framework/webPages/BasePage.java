@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Wait;
 import stepdefinition.SharedSD;
 
 import java.time.Duration;
+import java.util.List;
 
 /**
  * Created by mohammadmuntakim
@@ -18,7 +19,7 @@ public class BasePage {
 	// This is the most common wait function used in selenium
 	public static WebElement webAction(final By locator) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(SharedSD.getDriver())
-				.withTimeout(Duration.ofSeconds(15))
+				.withTimeout(Duration.ofSeconds(30))
 				.pollingEvery(Duration.ofSeconds(1))
 				.ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class)
@@ -34,6 +35,7 @@ public class BasePage {
 
 		return element;
 	}
+
 
 	public void clickOn(By locator) {
 		webAction(locator).click();
@@ -55,6 +57,7 @@ public class BasePage {
 		return webAction(locator).isSelected();
 	}
 
+
 	public void selectFromDropdown(By locator, String dropdownText) {
 		WebElement month = webAction(locator);
 		Select selectMonth = new Select(month);
@@ -67,5 +70,9 @@ public class BasePage {
 		Select selectMonth = new Select(month);
 		//select element by index
 		selectMonth.selectByIndex(index);
+	}
+
+	public void scrollToBottom(){
+		((JavascriptExecutor) SharedSD.getDriver()).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
 }
